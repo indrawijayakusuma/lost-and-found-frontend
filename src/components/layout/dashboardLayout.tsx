@@ -19,9 +19,9 @@ export const DashboardLayout: React.FC<Props> = ({
   typePost,
 }) => {
   return (
-    <div className="flex justify-center mt-10 text-sm mb-16">
-      <div className="w-[80%] flex gap-6">
-        <div className="w-1/5">
+    <div className="flex justify-center my-10 text-sm min-h-[40rem]">
+      <div className="md:w-[80%] w-[90%] flex gap-6">
+        <div className="w-1/5 hidden md:block">
           <div className="flex flex-col gap-3 shadow-custom border-border/40 border p-5 rounded-lg">
             <div className="flex flex-row space-x-2 items-center">
               <Avatar className="h-16 w-16">
@@ -86,8 +86,10 @@ export const DashboardLayout: React.FC<Props> = ({
           </div>
         </div>
 
-        <div className="w-4/5">
-          <p className="text-lg font-semibold md:text-2xl">Daftar Postingan</p>
+        <div className="md:w-4/5">
+          <p className="text-lg font-semibold md:text-2xl mb-4">
+            Daftar Postingan
+          </p>
           {children}
         </div>
       </div>

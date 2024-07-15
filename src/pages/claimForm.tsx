@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { getQuestion } from "@/api/question";
 import { useNavigate, useParams } from "react-router-dom";
 import { postValidation } from "@/api/validation";
-import { NavigationLayout } from "@/components/layout/navigationLayout";
 
 export const ClaimForm = () => {
   const [questions, setQuestions] = useState<Array<string>>([]);
@@ -60,7 +59,7 @@ export const ClaimForm = () => {
   };
 
   return (
-    <NavigationLayout>
+    <>
       <div className="text-center mb-5 mt-10">
         <h2 className="text-lg font-bold">
           Informasi Pertanyaan Barang Ditemukan
@@ -103,6 +102,6 @@ export const ClaimForm = () => {
           </Button>
         </form>
       </div>
-    </NavigationLayout>
+    </>
   );
 };

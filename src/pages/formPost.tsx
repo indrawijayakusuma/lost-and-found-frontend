@@ -19,7 +19,6 @@ import {
   showErrorsMessage,
   showSuccessMessageWithButton,
 } from "@/utils/sweetAlert";
-import { NavigationLayout } from "@/components/layout/navigationLayout";
 import {
   Popover,
   PopoverContent,
@@ -135,313 +134,304 @@ export const FormPost = () => {
   };
 
   return (
-    <NavigationLayout>
-      <div className="lg:w-[60%] w-[90%] mx-auto mt-10 mb-10">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="text-center">
-              <h2 className="text-lg font-bold">
-                Informasi Data Barang Ditemukan
-              </h2>
-              <p className="text-sm font-medium text-muted-foreground">
-                Isi data-data informasi barang yang ditemukan agar dapat diklaim
-                pemilik
-              </p>
-            </div>
+    <div className="lg:w-[60%] w-[90%] mx-auto mt-10 mb-10">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <div className="text-center">
+            <h2 className="text-lg font-bold">
+              Informasi Data Barang Ditemukan
+            </h2>
+            <p className="text-sm font-medium text-muted-foreground">
+              Isi data-data informasi barang yang ditemukan agar dapat diklaim
+              pemilik
+            </p>
+          </div>
 
-            <div className="grid lg:grid-cols-2 gap-5 w-full border border-border/40 shadow-custom mx-auto px-10 py-8">
-              <FormField
-                control={form.control}
-                name="itemName"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Nama Barang <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nama barang" required {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukkan nama barang yang ditemukan
-                    </FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="tipeBarang"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Tipe Barang <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Tipe barang" required {...field} />
-                    </FormControl>
-                    <FormDescription>Masukkan tipe barang</FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="color"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Warna <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nomer telepon" required {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukkan nomor telepon yang aktif
-                    </FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="secondaryColor"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Warna Sekunder <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Warna sekunder" required {...field} />
-                    </FormControl>
-                    <FormDescription>Masukkan warna sekunder</FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="date"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>
-                      Tanggal Ditemukan <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-[240px] pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormDescription>Tanggal penemuan barang</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="text-center">
-              <h2 className="text-lg font-bold">
-                Informasi Lokasi Barang Ditemukan
-              </h2>
-              <p className="text-sm font-medium text-muted-foreground">
-                Isi informasi lokasi barang yang ditemukan agar dapat divalidasi
-                oleh pemilik
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-5 w-full border border-border/40 shadow-custom mx-auto px-10 py-8">
-              <FormField
-                control={form.control}
-                name="labelLocation"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Label Lokasi <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Label lokasi" {...field} />
-                    </FormControl>
-                    <FormDescription>Masukkan label kehilangan</FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Nama Lokasi <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Lokasi" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukkan Lokasi kehilangan
-                    </FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="address"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Alamat Lokasi Penemuan{" "}
-                      <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Alamat" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukkan Alamat Lokasi Penemuan
-                    </FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="additionalInfo"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Informasi Tambahan <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="Informasi tambahan" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukkan Informasi tambahan
-                    </FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="image"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Foto Barang <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        className="pt-2"
-                        accept=".jpg, .jpeg, .png, .svg, .gif, .webp"
-                        type="file"
-                        onChange={(e) =>
-                          field.onChange(
-                            e.target.files ? e.target.files[0] : null
-                          )
+          <div className="grid lg:grid-cols-2 gap-5 w-full border border-border/40 shadow-custom mx-auto px-10 py-8">
+            <FormField
+              control={form.control}
+              name="itemName"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Nama Barang <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="Nama barang" required {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Masukkan nama barang yang ditemukan
+                  </FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="tipeBarang"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Tipe Barang <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="Tipe barang" required {...field} />
+                  </FormControl>
+                  <FormDescription>Masukkan tipe barang</FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="color"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Warna <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="Nomer telepon" required {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Masukkan nomor telepon yang aktif
+                  </FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="secondaryColor"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Warna Sekunder <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="Warna sekunder" required {...field} />
+                  </FormControl>
+                  <FormDescription>Masukkan warna sekunder</FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="date"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>
+                    Tanggal Ditemukan <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
                         }
+                        initialFocus
                       />
-                    </FormControl>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-            </div>
+                    </PopoverContent>
+                  </Popover>
+                  <FormDescription>Tanggal penemuan barang</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
-            <div className="text-center">
-              <h2 className="text-lg font-bold">
-                Informasi Pertanyaan barang ditemukan
-              </h2>
-              <p className="text-sm font-medium text-muted-foreground">
-                Buatlah pertanyaan yang spesifik terkait barang yang kamu
-                temukan
-              </p>
-            </div>
+          <div className="text-center">
+            <h2 className="text-lg font-bold">
+              Informasi Lokasi Barang Ditemukan
+            </h2>
+            <p className="text-sm font-medium text-muted-foreground">
+              Isi informasi lokasi barang yang ditemukan agar dapat divalidasi
+              oleh pemilik
+            </p>
+          </div>
 
-            <div className="grid lg:grid-cols-2 gap-5 w-full border border-border/40 shadow-custom mx-auto px-10 py-8">
-              <FormField
-                control={form.control}
-                name="question1"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Pertanyaan Validasi{" "}
-                      <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="pertanyaan" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukkan Pertanyaan Validasi
-                    </FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="question2"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Pertanyaan Validasi{" "}
-                      <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="pertanyaan" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukkan Pertanyaan Validasi
-                    </FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="question3"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>
-                      Pertanyaan Validasi{" "}
-                      <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="pertanyaan" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Masukkan Pertanyaan Validasi
-                    </FormDescription>
-                    <FormMessage className="text-red-500" />
-                  </FormItem>
-                )}
-              />
-            </div>
-            {/* <div className="flex items-center mt-4 ml-2">
+          <div className="grid lg:grid-cols-2 gap-5 w-full border border-border/40 shadow-custom mx-auto px-10 py-8">
+            <FormField
+              control={form.control}
+              name="labelLocation"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Label Lokasi <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="Label lokasi" {...field} />
+                  </FormControl>
+                  <FormDescription>Masukkan label kehilangan</FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Nama Lokasi <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="Lokasi" {...field} />
+                  </FormControl>
+                  <FormDescription>Masukkan Lokasi kehilangan</FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Alamat Lokasi Penemuan{" "}
+                    <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="Alamat" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Masukkan Alamat Lokasi Penemuan
+                  </FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="additionalInfo"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Informasi Tambahan <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="Informasi tambahan" {...field} />
+                  </FormControl>
+                  <FormDescription>Masukkan Informasi tambahan</FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Foto Barang <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      className="pt-2"
+                      accept=".jpg, .jpeg, .png, .svg, .gif, .webp"
+                      type="file"
+                      onChange={(e) =>
+                        field.onChange(
+                          e.target.files ? e.target.files[0] : null
+                        )
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="text-center">
+            <h2 className="text-lg font-bold">
+              Informasi Pertanyaan barang ditemukan
+            </h2>
+            <p className="text-sm font-medium text-muted-foreground">
+              Buatlah pertanyaan yang spesifik terkait barang yang kamu temukan
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-5 w-full border border-border/40 shadow-custom mx-auto px-10 py-8">
+            <FormField
+              control={form.control}
+              name="question1"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Pertanyaan Validasi <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="pertanyaan" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Masukkan Pertanyaan Validasi
+                  </FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="question2"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Pertanyaan Validasi <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="pertanyaan" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Masukkan Pertanyaan Validasi
+                  </FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="question3"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Pertanyaan Validasi <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder="pertanyaan" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Masukkan Pertanyaan Validasi
+                  </FormDescription>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
+          </div>
+          {/* <div className="flex items-center mt-4 ml-2">
               <input
                 required
                 id="link-checkbox"
@@ -465,21 +455,20 @@ export const FormPost = () => {
                 .
               </label>
             </div> */}
-            <Button disabled={submit} type="submit">
-              {!submit ? (
-                "Submit"
-              ) : (
-                <div className="flex items-center align-middle">
-                  <div className="animate-spin text-xl mr-2">
-                    <BiLoaderAlt />
-                  </div>
-                  processing...
+          <Button disabled={submit} type="submit">
+            {!submit ? (
+              "Submit"
+            ) : (
+              <div className="flex items-center align-middle">
+                <div className="animate-spin text-xl mr-2">
+                  <BiLoaderAlt />
                 </div>
-              )}
-            </Button>
-          </form>
-        </Form>
-      </div>
-    </NavigationLayout>
+                processing...
+              </div>
+            )}
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 };

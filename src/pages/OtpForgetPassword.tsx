@@ -20,7 +20,6 @@ import { z } from "zod";
 import { getOtpByPhoneAndOtpCode } from "@/api/otps";
 import { showErrorsMessage } from "@/utils/sweetAlert";
 import { useNavigate } from "react-router-dom";
-import laptop from "../assets/Laptop.png";
 
 const FormSchema = z.object({
   otp: z.string().min(6, {
@@ -48,7 +47,6 @@ export const OtpForgetPassword = ({ phone }: { phone: string }) => {
 
   return (
     <div className="min-h-screen flex flex-row justify-center items-center gap-14">
-      <img src={laptop} alt="laptop" className="w-96 hidden md:flex" />
       <div className="flex shadow-custom border-border/40 border rounded-md p-8 w-[26rem]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">

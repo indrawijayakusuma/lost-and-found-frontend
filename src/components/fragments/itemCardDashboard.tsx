@@ -37,14 +37,14 @@ export const ItemCardDashboard = ({ posts, typePost, setLoading }: Props) => {
 
   return (
     <div className="flex flex-row shadow-custom border-border/40 border pt-3 px-6 pb-5 rounded-lg">
-      <div className="flex flex-col space-y-6 w-[60%]">
-        <div className="flex flex-row gap-9">
+      <div className="flex flex-col space-y-6 md:w-[60%]">
+        <div className="flex flex-row gap-9 text-xs md:text-base items-center">
           {typePost === "Ditemukan" && <p>Barang Ditemukan</p>}
           {typePost === "Diklaim" && <p>Barang Diklaim</p>}
           <p className="text-muteText">27 april 2024</p>
           {typePost !== "Daftar-postingan" && (
             <div
-              className={`border border-border  px-4 py-[0.2rem] rounded-lg ${
+              className={`border border-border px-4 py-[0.2rem] rounded-lg ${
                 posts.status_validation === "Selesai"
                   ? "border-green-500 text-green-500 bg-green-500/5"
                   : ""
@@ -58,7 +58,7 @@ export const ItemCardDashboard = ({ posts, typePost, setLoading }: Props) => {
             </div>
           )}
         </div>
-        <div className="flex flex-row gap-7">
+        <div className="flex flex-row gap-4 md:gap-7 text-xs md:text-base">
           <img
             src={posts.image}
             alt=""
@@ -66,18 +66,19 @@ export const ItemCardDashboard = ({ posts, typePost, setLoading }: Props) => {
           />
           <div className="item-center flex flex-col gap-2">
             <div className="flex gap-2 items-center">
-              <HiOutlineShoppingBag className="text-primary w-5 h-5" />
+              <HiOutlineShoppingBag className="text-primary md:w-5 md:h-5 w-4 h-4" />
               <p>{posts.item_name}</p>
             </div>
-            <div className="flex flex-row gap-2 items-center">
+            <div className="flex gap-2 items-center">
               <GrLocation className="text-primary w-5 h-5" />
-              {posts.address}, {posts.location}
+              <p>
+                {posts.address}, {posts.location}
+              </p>
             </div>
-            <p></p>
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-between text-end w-[40%] h-44">
+      <div className="flex flex-col justify-between text-end w-[40%] h-44 text-xs md:text-base">
         <p className="mt-1 text-muted-foreground">
           {posts.status_validation === "Diproses" && typePost === "Ditemukan"
             ? "Menunggu Pemilik"
@@ -86,7 +87,7 @@ export const ItemCardDashboard = ({ posts, typePost, setLoading }: Props) => {
             ? "Menunggu Validasi"
             : ""}
         </p>
-        <div className="flex flex-row justify-end gap-3 items-center">
+        <div className="flex flex-row justify-end gap-3 items-center text-xs md:text-base">
           <Link to="">Lihat Detail Barang</Link>
           {posts.status_validation === "Diproses" &&
             typePost === "Ditemukan" && (

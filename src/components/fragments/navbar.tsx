@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import {
@@ -39,7 +39,7 @@ export const Navbar = () => {
       </nav>
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
+          <Button variant="ghost" size="icon" className="shrink-0 md:hidden">
             <HiMenuAlt2 className="h-5 w-5" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
@@ -75,35 +75,54 @@ export const Navbar = () => {
 
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-6">
         <div className="ml-auto flex-1 sm:flex-initial" />
-        <Link
+        <NavLink
           to="/"
-          className="text-muted-foreground text-sm transition-colors hover:text-foreground hidden md:flex"
+          className={({ isActive }) =>
+            isActive
+              ? "text-foreground font-semibold text-sm transition-colors hover:text-foreground hidden md:flex"
+              : "text-muted-foreground text-sm transition-colors hover:text-foreground hidden md:flex"
+          }
         >
           Home
-        </Link>
+        </NavLink>
         {token && (
-          <Link
+          <NavLink
             to="/dashboard"
-            className="text-muted-foreground text-sm transition-colors hover:text-foreground hidden md:flex"
+            className={({ isActive }) =>
+              isActive
+                ? "text-foreground font-semibold text-sm transition-colors hover:text-foreground hidden md:flex"
+                : "text-muted-foreground text-sm transition-colors hover:text-foreground hidden md:flex"
+            }
           >
             Dashboard
-          </Link>
+          </NavLink>
         )}
-        <Link
+        <NavLink
           to="/buat-postingan"
-          className="text-muted-foreground text-sm transition-colors hover:text-foreground hidden md:flex"
+          className={({ isActive }) =>
+            isActive
+              ? "text-foreground font-semibold text-sm transition-colors hover:text-foreground hidden md:flex"
+              : "text-muted-foreground text-sm transition-colors hover:text-foreground hidden md:flex"
+          }
         >
           Buat Postingan
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to="/daftar-barang-ditemukan"
-          className="text-muted-foreground text-sm transition-colors hover:text-foreground hidden md:flex"
+          className={({ isActive }) =>
+            isActive
+              ? "text-foreground font-semibold text-sm transition-colors hover:text-foreground hidden md:flex"
+              : "text-muted-foreground text-sm transition-colors hover:text-foreground hidden md:flex"
+          }
         >
           Postingan Terbaru
-        </Link>
+        </NavLink>
+        <Separator
+          orientation="vertical"
+          className="h-6 bg-primary md:flex hidden"
+        />
         {token ? (
           <>
-            <Separator orientation="vertical" className="h-6 bg-primary" />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <div className="flex cursor-pointer items-center gap-2 hover:bg-accent p-2 rounded-md">
@@ -114,7 +133,7 @@ export const Navbar = () => {
                   >
                     <Avatar>
                       <AvatarImage src={user.picture} />
-                      <AvatarFallback className="font-semibold text-3xl">
+                      <AvatarFallback className="font-semibold text-xl">
                         {user.fullname.charAt(0)}
                       </AvatarFallback>
                     </Avatar>

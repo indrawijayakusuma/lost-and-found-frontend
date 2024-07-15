@@ -17,7 +17,7 @@ export const ItemCard = ({
   postId,
 }: ItemCardProps) => {
   return (
-    <div className="flex flex-col gap-1 w-80 shadow-custom border-border/40 border rounded-md py-3 px-4 text-sm">
+    <div className="flex flex-col gap-1 md:w-80 shadow-custom border-border/40 border rounded-md py-3 px-4 text-sm">
       <div className="flex gap-2 items-center">
         <HiOutlineShoppingBag className="text-primary" />
         <p>{itemName}</p>

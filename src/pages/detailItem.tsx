@@ -6,7 +6,6 @@ import { IoMdTime } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPostByid } from "@/api/posts";
-import { NavigationLayout } from "@/components/layout/navigationLayout";
 import { showFormattedDate } from "@/utils/dataFormater";
 
 interface item {
@@ -53,81 +52,78 @@ export const DetailItem = () => {
   }, [id]);
 
   return (
-    <NavigationLayout>
-      <div className="flex justify-center gap-4 mt-20 mb-40">
-        <div className="flex h-80 space-x-12 w-[80%] justify-center">
-          <div className="">
-            <img
-              src={item.image}
-              alt=""
-              className="w-60 h-60 object-contain bg-slate-400 bg-contain bg-center rounded-lg"
-            />
-          </div>
+    <div className="flex justify-center md:mt-20 mt-4 md:mb-40 mb-20">
+      <div className="flex md:flex-row flex-col md:h-80 md:space-x-12 md:w-[80%] w-[90%] md:gap-0 gap-4 md:items-start items-center justify-center">
+        <div className="">
+          <img
+            src={item.image}
+            alt=""
+            className="md:w-60 md:h-60 w-96 h-96 object-contain bg-slate-400 bg-contain bg-center rounded-lg"
+          />
+        </div>
 
-          <div className="flex flex-col gap-2 w-1/3 text-base">
-            <p className="text-lg font-semibold md:text-2xl">
-              {item.item_name}
-            </p>
-            <div className="flex flex-col">
-              <div className="flex flex-row item-center gap-2 items-center">
-                <GrLocation className="text-muted-foreground mt-1 w-4 h-4" />
-                <p>
-                  {item.address}, {item.location}
-                </p>
-              </div>
-              <div className="flex flex-row gap-2 items-center">
-                <IoMdTime className="text-muted-foreground mt-1 w-4 h-4" />
-                <p>{showFormattedDate(item.date)}</p>
-              </div>
-              <div className="gap-1 flex flex-col">
-                <Separator className="mt-3" />
-                <span className="text-primary py-1.5">Informasi Tambahan</span>
-                <div className="flex flex-col">
-                  <Separator className="w-36 bg-primary" />
-                  <Separator className="" />
-                </div>
-              </div>
-              <p className="text-muted-foreground mt-2">
-                {item.additional_info}
+        <div className="flex flex-col gap-2 md:w-1/3 w-full text-base">
+          <p className="text-xl font-semibold md:text-2xl">{item.item_name}</p>
+          <div className="flex flex-col">
+            <div className="flex flex-row item-center gap-2 items-center">
+              <GrLocation className="text-muted-foreground mt-1 w-4 h-4" />
+              <p>
+                {item.address}, {item.location}
               </p>
             </div>
-            <Separator className="mt-14 mb-4" />
-            <div className="flex flex-row space-x-5">
-              <Avatar className="h-16 w-16">
-                <AvatarImage src={item.picture} />
-                <AvatarFallback className="font-semibold text-3xl">
-                  {item.fullname.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col text-sm">
-                <p className="text-lg font-semibold md:text-2xl">
-                  {item.fullname}
-                </p>
-                <p className="text-muted-foreground">
-                  {item.postNumber} Barang ditemukan
-                </p>
+            <div className="flex flex-row gap-2 items-center">
+              <IoMdTime className="text-muted-foreground mt-1 w-4 h-4" />
+              <p>{showFormattedDate(item.date)}</p>
+            </div>
+            <div className="gap-1 flex flex-col">
+              <Separator className="mt-3" />
+              <span className="text-primary py-1.5">Informasi Tambahan</span>
+              <div className="flex flex-col">
+                <Separator className="w-36 bg-primary" />
+                <Separator className="" />
               </div>
             </div>
+            <p className="text-muted-foreground mt-2">{item.additional_info}</p>
           </div>
-          <div className="flex flex-col w-64 border justify-evenly border-opacity-90 shadow-sm rounded-lg py-3 px-5 item-center">
-            <p className="text-lg font-semibold md:text-md text-center">
-              Catatan Saat klaim
-            </p>
-            <Separator className="" />
-            <p className="text-sm text-muted-foreground text-justify">
-              Pastikan barang yang Anda klaim adalah barang milik Anda sendiri.
-              Verifikasi secara teliti agar tidak terjadi kesalahan atau
-              ketidakakuratan dalam proses klaim
-            </p>
-            <Button
-              onClick={() => navigate(`/claim-form/${item.post_id}`)}
-              className="bg-primary w-full"
-            >
-              klaim
-            </Button>
+
+          <Separator className="mt-14 mb-4" />
+
+          <div className="flex flex-row space-x-5">
+            <Avatar className="h-16 w-16">
+              <AvatarImage src={item.picture} />
+              <AvatarFallback className="font-semibold text-3xl">
+                {item.fullname.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col text-sm">
+              <p className="text-lg font-semibold md:text-2xl">
+                {item.fullname}
+              </p>
+              <p className="text-muted-foreground">
+                {item.postNumber} Barang ditemukan
+              </p>
+            </div>
           </div>
         </div>
+
+        <div className="flex flex-col gap-4 md:w-64 w-full border md:mt-0 mt-7 justify-evenly border-opacity-90 shadow-sm rounded-lg md:py-3 py-5 px-5 item-center">
+          <p className="text-lg font-semibold md:text-md text-center">
+            Catatan Saat klaim
+          </p>
+          <Separator className="" />
+          <p className="text-sm text-muted-foreground text-justify">
+            Pastikan barang yang Anda klaim adalah barang milik Anda sendiri.
+            Verifikasi secara teliti agar tidak terjadi kesalahan atau
+            ketidakakuratan dalam proses klaim
+          </p>
+          <Button
+            onClick={() => navigate(`/claim-form/${item.post_id}`)}
+            className="bg-primary w-full"
+          >
+            klaim
+          </Button>
+        </div>
       </div>
-    </NavigationLayout>
+    </div>
   );
 };

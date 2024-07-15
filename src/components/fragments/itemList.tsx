@@ -10,6 +10,7 @@ interface Props {
   page: number;
   limit: number;
   foundItem: any;
+  location: string | null;
 }
 
 export const ItemList = ({
@@ -18,23 +19,25 @@ export const ItemList = ({
   page,
   limit,
   foundItem,
+  location,
 }: Props) => {
   useEffect(() => {
     const getpostsItem = async () => {
       try {
-        const response = (await getposts({ search, page, limit })).data;
+        const response = (await getposts({ search, page, limit, location }))
+          .data;
         setFoundItem(response.data.posts);
       } catch (error) {
         console.log(error);
       }
     };
     getpostsItem();
-  }, [page, limit, search]);
+  }, [page, limit, search, location]);
 
   return (
     <>
       {foundItem.item.length >= 1 ? (
-        <div className="grid grid-cols-3 gap-4 w-full">
+        <div className="grid md:grid-cols-3 grid-cols-1 gap-4 w-full">
           {foundItem?.item?.map((item: any) => (
             <ItemCard
               key={item.postId}

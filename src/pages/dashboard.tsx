@@ -10,8 +10,6 @@ import {
   getPostByuserId,
 } from "@/api/posts";
 import { DashboardLayout } from "@/components/layout/dashboardLayout";
-import { NavigationLayout } from "@/components/layout/navigationLayout";
-
 interface postsInterface {
   post_id: string;
   item_name: string;
@@ -106,27 +104,27 @@ export const Dashboard = () => {
       post.item_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // if (loading) {
-  //   return (
-  //     <p className="flex min-h-screen items-center justify-center">
-  //       loading...
-  //     </p>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <p className="flex min-h-screen items-center justify-center">
+        loading...
+      </p>
+    );
+  }
 
   return (
-    <NavigationLayout>
-      <DashboardLayout
-        user={user}
-        typePostHandler={typePostHandler}
-        typePost={typePost}
-      >
-        <div className="flex flex-col gap-5 border-border/40 border rounded-lg p-5 w-[90%]">
-          <Input
-            className="rounded-lg w-2/3"
-            placeholder="Cari postinganmu disini"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    <DashboardLayout
+      user={user}
+      typePostHandler={typePostHandler}
+      typePost={typePost}
+    >
+      <div className="flex flex-col gap-5 border-border/40 border rounded-lg p-5 md:w-[90%] w-full">
+        <Input
+          className="rounded-lg w-2/3"
+          placeholder="Cari postinganmu disini"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <div className="hidden md:block">
           {typePost !== "Daftar-postingan" && (
             <div className="flex flex-row gap-4 rounded-lg items-center text-muted-foreground transition-colors">
               <p>Status</p>
@@ -144,21 +142,21 @@ export const Dashboard = () => {
               ))}
             </div>
           )}
-          <div className="flex flex-col gap-3">
-            {filteredItem.map((post, index) => (
-              <ItemCardDashboard
-                key={index}
-                posts={post}
-                setLoading={setLoading}
-                typePost={typePost}
-              />
-            ))}
-            {filteredItem.length === 0 && (
-              <p className="text-center mt-8">Item Tidak Tersedia</p>
-            )}
-          </div>
         </div>
-      </DashboardLayout>
-    </NavigationLayout>
+        <div className="flex flex-col gap-3">
+          {filteredItem.map((post, index) => (
+            <ItemCardDashboard
+              key={index}
+              posts={post}
+              setLoading={setLoading}
+              typePost={typePost}
+            />
+          ))}
+          {filteredItem.length === 0 && (
+            <p className="text-center mt-8">Item Tidak Tersedia</p>
+          )}
+        </div>
+      </div>
+    </DashboardLayout>
   );
 };

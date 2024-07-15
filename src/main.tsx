@@ -17,6 +17,7 @@ import { UnauthRoutes } from "./routes/UnauthRoutes";
 import { Setting } from "./pages/setting";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { NewPasswordForm } from "./pages/newPasswordForm";
+import { NavigationLayout } from "./components/layout/navigationLayout";
 
 const routesForPublic = [
   {
@@ -86,9 +87,10 @@ const routesForPrivate = [
 ];
 
 const router = createBrowserRouter([
-  ...routesForPublic,
-  ...routesForUnauth,
-  ...routesForPrivate,
+  {
+    element: <NavigationLayout />,
+    children: [...routesForPublic, ...routesForUnauth, ...routesForPrivate],
+  },
   {
     path: "*",
     element: <div>404</div>,

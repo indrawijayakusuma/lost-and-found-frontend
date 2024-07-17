@@ -33,6 +33,7 @@ axiosJwt.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${token}`;
         return axios(originalRequest);
       } catch (error) {
+        localStorage.removeItem("token");
         console.log(error);
       }
     }

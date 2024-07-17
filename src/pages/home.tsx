@@ -14,7 +14,7 @@ export const Home = () => {
 
   return (
     <div>
-      <div className="flex justify-center min-h-96 items-center relative">
+      <div className="flex justify-center md:min-h-96 items-center relative">
         <img
           src={homeImg}
           alt="homepage"

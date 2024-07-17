@@ -67,7 +67,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-row justify-center items-center gap-14">
+    <div className="my-36 flex flex-row justify-center items-center gap-14">
       <img src={laptop} alt="laptop" className="w-96 hidden md:flex" />
       <div className="flex shadow-custom border-border/40 border rounded-md p-8 w-[26rem]">
         <Form {...form}>

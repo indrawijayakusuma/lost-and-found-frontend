@@ -46,7 +46,7 @@ export const AuthContextProvider = ({ children }: props) => {
 
   const logout = () => {
     setToken(null);
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("token");
   };
 
   return (

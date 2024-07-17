@@ -15,11 +15,18 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { useAuth } from "@/hooks/useAuth";
 import { useLogin } from "@/hooks/useLogin";
+import { useEffect } from "react";
 
 export const Navbar = () => {
   const { logout, token } = useAuth();
   const user = useLogin();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
 
   const handlerLogout = () => {
     logout();

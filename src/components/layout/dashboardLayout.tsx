@@ -19,10 +19,10 @@ export const DashboardLayout: React.FC<Props> = ({
   typePost,
 }) => {
   return (
-    <div className="flex justify-center my-10 text-sm min-h-[40rem]">
-      <div className="md:w-[80%] w-[90%] flex gap-6">
-        <div className="w-1/5 hidden md:block">
-          <div className="flex flex-col gap-3 shadow-custom border-border/40 border p-5 rounded-lg">
+    <div className="flex justify-center md:my-10 text-sm min-h-[40rem]">
+      <div className="md:w-[80%] w-[90%] flex flex-col md:flex-row gap-6">
+        <div className="w-1/5">
+          <div className="hidden md:flex md:flex-col gap-3 shadow-custom border-border/40 border p-5 rounded-lg">
             <div className="flex flex-row space-x-2 items-center">
               <Avatar className="h-16 w-16">
                 <AvatarImage src={user.picture} />
@@ -33,6 +33,7 @@ export const DashboardLayout: React.FC<Props> = ({
               <p className="text-lg font-semibold ">{user.fullname}</p>
             </div>
             <Separator className="h-[0.1rem]" />
+
             <div className="flex flex-col gap-2">
               <Button
                 variant={"outline"}

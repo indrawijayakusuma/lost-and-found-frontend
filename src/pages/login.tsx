@@ -67,9 +67,9 @@ const Login = () => {
   }
 
   return (
-    <div className="my-36 flex flex-row justify-center items-center gap-14">
+    <div className="md:min-h-screen h-[43rem] flex flex-row justify-center items-center gap-14">
       <img src={laptop} alt="laptop" className="w-96 hidden md:flex" />
-      <div className="flex shadow-custom border-border/40 border rounded-md p-8 w-[26rem]">
+      <div className="flex shadow-custom border-border/40 border rounded-md p-8 w-[90%] md:w-[26rem]">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

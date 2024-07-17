@@ -70,12 +70,12 @@ export const ForgotPassword = () => {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nomor telfon terdaftar</FormLabel>
+                    <FormLabel>Nomor telepon terdaftar</FormLabel>
                     <FormControl>
                       <Input placeholder="08xxxxxxxx" {...field} />
                     </FormControl>
                     <FormDescription>
-                      Maukan Nomor telfon terdaftar
+                      Maukan Nomor telepon terdaftar
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

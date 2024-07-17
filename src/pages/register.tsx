@@ -22,7 +22,7 @@ import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 const formSchema = z.object({
   phone: z.string().min(10, {
-    message: "Name must be at least 10 characters.",
+    message: "phone must be at least 10 characters.",
   }),
   email: z
     .string()
@@ -36,11 +36,11 @@ const formSchema = z.object({
   username: z.string().min(3, {
     message: "username must be at least 3 characters.",
   }),
-  password: z.string().min(3, {
-    message: "Rekening must be at least 3 characters.",
+  password: z.string().min(5, {
+    message: "password must be at least 3 characters.",
   }),
-  passwordValidation: z.string().min(3, {
-    message: "Rekening must be at least 3 characters.",
+  passwordValidation: z.string().min(5, {
+    message: "password must be at least 3 characters.",
   }),
 });
 

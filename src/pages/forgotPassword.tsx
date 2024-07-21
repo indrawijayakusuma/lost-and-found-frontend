@@ -22,7 +22,7 @@ import { OtpForgetPassword } from "./OtpForgetPassword";
 
 const formSchema = z.object({
   phone: z.string().min(10, {
-    message: "Name must be at least 10 characters.",
+    message: "phone must be at least 10 characters.",
   }),
 });
 

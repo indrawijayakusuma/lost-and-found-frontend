@@ -32,16 +32,16 @@ import { createPost } from "@/api/posts";
 
 const formSchema = z.object({
   itemName: z.string().min(3, {
-    message: "Nama setidaknya mengandung 3 karakter",
+    message: "Nama item setidaknya mengandung 3 karakter",
   }),
   tipeBarang: z.string().min(3, {
-    message: "Nama setidaknya mengandung 3 karakter",
+    message: "Tipe barang mengandung 3 karakter",
   }),
   color: z.string().min(3, {
-    message: "Nama setidaknya mengandung 3 karakter",
+    message: "Warna mengandung 3 karakter",
   }),
   secondaryColor: z.string().min(3, {
-    message: "Nama setidaknya mengandung 3 karakter",
+    message: "Warna sekunder mengandung 3 karakter",
   }),
   date: z.date({
     required_error: "Tanggal harus diisi",

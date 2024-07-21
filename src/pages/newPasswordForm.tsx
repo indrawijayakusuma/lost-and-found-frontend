@@ -21,10 +21,10 @@ import { updateForgetPassword } from "@/api/users";
 
 const formSchema = z.object({
   password: z.string().min(3, {
-    message: "Rekening must be at least 3 characters.",
+    message: "Password must be at least 3 characters.",
   }),
   passwordValidation: z.string().min(3, {
-    message: "Rekening must be at least 3 characters.",
+    message: "Password must be at least 3 characters.",
   }),
 });
 

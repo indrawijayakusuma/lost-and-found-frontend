@@ -21,10 +21,10 @@ import { BiLoaderAlt } from "react-icons/bi";
 
 const formSchema = z.object({
   phone: z.string().min(10, {
-    message: "Name must be at least 10 characters.",
+    message: "Name phone be at least 10 characters.",
   }),
   password: z.string().min(3, {
-    message: "Rekening must be at least 3 characters.",
+    message: "password must be at least 3 characters.",
   }),
 });
 

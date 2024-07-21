@@ -19,13 +19,13 @@ import { updatePassword } from "@/api/users";
 
 const formSchema = z.object({
   oldPassword: z.string().min(3, {
-    message: "Rekening must be at least 3 characters.",
+    message: "password must be at least 3 characters.",
   }),
   newPassword: z.string().min(3, {
-    message: "Rekening must be at least 3 characters.",
+    message: "password must be at least 3 characters.",
   }),
   validationPassword: z.string().min(3, {
-    message: "Rekening must be at least 3 characters.",
+    message: "password must be at least 3 characters.",
   }),
 });
 

@@ -27,7 +27,7 @@ interface Props {
 export const ItemCardDashboard = ({ posts, typePost, setLoading }: Props) => {
   const handlerComplateValidation = async () => {
     try {
-      await postCompleteValidation(posts.validation_id);
+      await postCompleteValidation(posts.post_id);
       showSuccessMessage("Pemilik barang telah ditemukan");
       setLoading(true);
     } catch (error) {
@@ -71,7 +71,7 @@ export const ItemCardDashboard = ({ posts, typePost, setLoading }: Props) => {
             </div>
             <div className="flex gap-2 items-center">
               <GrLocation className="text-primary w-5 h-5" />
-              <p>
+              <p className="text-ellipsis w-64 whitespace-nowrap overflow-hidden">
                 {posts.address}, {posts.location}
               </p>
             </div>
@@ -88,7 +88,9 @@ export const ItemCardDashboard = ({ posts, typePost, setLoading }: Props) => {
             : ""}
         </p>
         <div className="flex flex-row justify-end gap-3 items-center text-xs md:text-base">
-          <Link to="">Lihat Detail Barang</Link>
+          <Link to={`/daftar-barang-ditemukan/${posts.post_id}`}>
+            Lihat Detail Barang
+          </Link>
           {posts.status_validation === "Diproses" &&
             typePost === "Ditemukan" && (
               <ValidationDialog

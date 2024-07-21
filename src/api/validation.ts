@@ -19,3 +19,12 @@ export const postRejValidation = async (id?: string) => {
 export const postCompleteValidation = async (id?: string) => {
   return await axiosJwt.post(`${apiUrl}/claim-validation/${id}/complete`);
 };
+
+export const checkValidationUser = async (
+  postId: string,
+  validationUserId: string
+) => {
+  return await axiosJwt.get(
+    `${apiUrl}/claim-validation/check-validation?postId=${postId}&validationUserId=${validationUserId}`
+  );
+};

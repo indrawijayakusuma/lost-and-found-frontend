@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getUser } from "../api/users";
 
 interface userInterface {
-  id: string;
+  user_id: string;
   username: string;
   email: string;
   phone: string;
@@ -13,7 +13,7 @@ interface userInterface {
 
 export const useLogin = () => {
   const [user, setUser] = useState<userInterface>({
-    id: "",
+    user_id: "",
     username: "",
     email: "",
     phone: "",

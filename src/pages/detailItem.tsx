@@ -2,11 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { GrLocation } from "react-icons/gr";
-import { IoMdTime } from "react-icons/io";
+import { IoIosArrowBack, IoMdTime } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getPostByid } from "@/api/posts";
 import { showFormattedDate } from "@/utils/dataFormater";
+import { useLogin } from "@/hooks/useLogin";
+import { checkValidationUser } from "@/api/validation";
 
 interface item {
   post_id: string;
@@ -20,11 +22,14 @@ interface item {
   picture: string;
   user_id: string;
   postNumber: number;
+  is_claimed: boolean;
 }
 
 export const DetailItem = () => {
+  const user = useLogin();
   const navigate = useNavigate();
   const { id } = useParams();
+  const [isUserClaimed, setIsUserClaimed] = useState(false);
   const [item, setItem] = useState<item>({
     post_id: "",
     item_name: "",
@@ -37,6 +42,7 @@ export const DetailItem = () => {
     picture: "",
     user_id: "",
     postNumber: 0,
+    is_claimed: false,
   });
 
   useEffect(() => {
@@ -48,12 +54,29 @@ export const DetailItem = () => {
         console.log("error");
       }
     };
+
+    const checkUserValidation = async () => {
+      try {
+        const res = await checkValidationUser(item.post_id, user.user_id);
+        setIsUserClaimed(res.data.result);
+      } catch {
+        console.log("error");
+      }
+    };
+
     getPost();
-  }, [id]);
+    checkUserValidation();
+  }, [id, item.post_id, user.user_id]);
 
   return (
-    <div className="flex justify-center md:mt-20 mt-4 md:mb-40 mb-20">
-      <div className="flex md:flex-row flex-col md:h-80 md:space-x-12 md:w-[80%] w-[90%] md:gap-0 gap-4 md:items-start items-center justify-center">
+    <div className="flex flex-col justify-center md:mt-12 gap-4 mt-4 md:mb-72 mb-20">
+      <button
+        className="flex md:w-[80%] w-[90%] mx-auto"
+        onClick={() => navigate(-1)}
+      >
+        <IoIosArrowBack className="w-6 h-6" />
+      </button>
+      <div className="flex md:flex-row flex-col mx-auto md:h-80 md:space-x-12 md:w-[80%] w-[90%] md:gap-0 gap-4 md:items-start items-center justify-center">
         <div className="">
           <img
             src={item.image}
@@ -64,14 +87,14 @@ export const DetailItem = () => {
 
         <div className="flex flex-col gap-2 md:w-1/3 w-full text-base">
           <p className="text-xl font-semibold md:text-2xl">{item.item_name}</p>
-          <div className="flex flex-col">
-            <div className="flex flex-row item-center gap-2 items-center">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-row gap-2">
               <GrLocation className="text-muted-foreground mt-1 w-4 h-4" />
-              <p>
+              <p className="w-full">
                 {item.address}, {item.location}
               </p>
             </div>
-            <div className="flex flex-row gap-2 items-center">
+            <div className="flex flex-row gap-2">
               <IoMdTime className="text-muted-foreground mt-1 w-4 h-4" />
               <p>{showFormattedDate(item.date)}</p>
             </div>
@@ -108,20 +131,46 @@ export const DetailItem = () => {
 
         <div className="flex flex-col gap-4 md:w-64 w-full border md:mt-0 mt-7 justify-evenly border-opacity-90 shadow-sm rounded-lg md:py-3 py-5 px-5 item-center">
           <p className="text-lg font-semibold md:text-md text-center">
-            Catatan Saat klaim
+            {isUserClaimed && "Anda telah melakukan klaim pada barang ini"}
+            {item.is_claimed && "Barang selesai di klaim"}
+            {!item.is_claimed && !isUserClaimed && "Catatan saat klaim"}
           </p>
+
           <Separator className="" />
-          <p className="text-sm text-muted-foreground text-justify">
-            Pastikan barang yang Anda klaim adalah barang milik Anda sendiri.
-            Verifikasi secara teliti agar tidak terjadi kesalahan atau
-            ketidakakuratan dalam proses klaim
-          </p>
-          <Button
-            onClick={() => navigate(`/claim-form/${item.post_id}`)}
-            className="bg-primary w-full"
-          >
-            klaim
-          </Button>
+          {item.is_claimed === false && isUserClaimed === false && (
+            <p className="text-sm text-muted-foreground text-justify">
+              Pastikan barang yang Anda klaim adalah barang milik Anda sendiri.
+              Verifikasi secara teliti agar tidak terjadi kesalahan atau
+              ketidakakuratan dalam proses klaim
+            </p>
+          )}
+          {user.user_id !== item.user_id &&
+            item.is_claimed === false &&
+            isUserClaimed === false && (
+              <Button
+                onClick={() => navigate(`/claim-form/${item.post_id}`)}
+                className="bg-primary w-full"
+              >
+                klaim
+              </Button>
+            )}
+          {user.user_id === item.user_id && item.is_claimed === false && (
+            <Button
+              onClick={() => navigate(`/claim-form/${item.post_id}`)}
+              className="bg-primary w-full"
+            >
+              Edit Postingan
+            </Button>
+          )}
+
+          {isUserClaimed && (
+            <Button
+              onClick={() => navigate("/dashboard")}
+              className="bg-primary w-full"
+            >
+              Dashboard
+            </Button>
+          )}
         </div>
       </div>
     </div>

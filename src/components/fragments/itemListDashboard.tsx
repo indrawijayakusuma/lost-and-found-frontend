@@ -91,8 +91,6 @@ export const ItemListDashboard = ({
       post.item_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  console.log(loading);
-
   return (
     <>
       {filteredItem.map((post, index) => (
@@ -103,6 +101,7 @@ export const ItemListDashboard = ({
           typePost={typePost}
         />
       ))}
+      <p>{loading && "Loading..."}</p>
       {filteredItem.length === 0 && (
         <p className="text-center mt-8">Postingan tidak tersedia</p>
       )}

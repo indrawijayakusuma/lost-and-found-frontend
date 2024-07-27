@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUser } from "../api/users";
+import { useAuth } from "./useAuth";
 
 interface userInterface {
   user_id: string;
@@ -12,6 +13,7 @@ interface userInterface {
 }
 
 export const useLogin = () => {
+  const { token } = useAuth();
   const [user, setUser] = useState<userInterface>({
     user_id: "",
     username: "",
@@ -24,7 +26,7 @@ export const useLogin = () => {
 
   useEffect(() => {
     getUsername();
-  }, []);
+  }, [token]);
 
   async function getUsername() {
     try {

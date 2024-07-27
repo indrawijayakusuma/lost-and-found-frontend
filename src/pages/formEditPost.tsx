@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BiLoaderAlt } from "react-icons/bi";
 import { z } from "zod";
 import {
@@ -28,7 +29,7 @@ import { CalendarIcon } from "@radix-ui/react-icons";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { createPost } from "@/api/posts";
+import { createPost, getPostUpdateById } from "@/api/posts";
 
 const formSchema = z.object({
   itemName: z.string().min(3, {
@@ -72,14 +73,24 @@ const formSchema = z.object({
   }),
 });
 
-export const FormPost = () => {
+export const FormEditPost = () => {
   const [submit, setSubmit] = useState(false);
   const navigate = useNavigate();
+  const { postId } = useParams();
 
   useEffect(() => {
-    document.title = "Form Post";
+    document.title = "Edit Post";
     window.scrollTo(0, 0);
     setSubmit(false);
+    const getPost = async () => {
+      try {
+        const response = await getPostUpdateById(postId || "");
+        console.log(response.data.data);
+      } catch (error: any) {
+        showErrorsMessage(error.response.data.message);
+      }
+    };
+    getPost();
   }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -139,7 +150,7 @@ export const FormPost = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="text-center">
             <h2 className="text-lg font-bold">
-              Informasi Data Barang Ditemukan
+              Edit Informasi Data Barang Ditemukan
             </h2>
             <p className="text-sm font-medium text-muted-foreground">
               Isi data-data informasi barang yang ditemukan agar dapat diklaim
@@ -264,7 +275,7 @@ export const FormPost = () => {
 
           <div className="text-center">
             <h2 className="text-lg font-bold">
-              Informasi Lokasi Barang Ditemukan
+              Edit Informasi Lokasi Barang Ditemukan
             </h2>
             <p className="text-sm font-medium text-muted-foreground">
               Isi informasi lokasi barang yang ditemukan agar dapat divalidasi
@@ -368,7 +379,7 @@ export const FormPost = () => {
 
           <div className="text-center">
             <h2 className="text-lg font-bold">
-              Informasi Pertanyaan barang ditemukan
+              Edit Informasi Pertanyaan barang ditemukan
             </h2>
             <p className="text-sm font-medium text-muted-foreground">
               Buatlah pertanyaan yang spesifik terkait barang yang kamu temukan

@@ -1,4 +1,5 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Link, NavLink } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import {
@@ -13,26 +14,14 @@ import { HiMenuAlt2 } from "react-icons/hi";
 import logo from "../../assets/LogoBar.png";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useAuth } from "@/hooks/useAuth";
-import { useLogin } from "@/hooks/useLogin";
-import { useEffect } from "react";
 
-export const Navbar = () => {
-  const { logout, token } = useAuth();
-  const user = useLogin();
-  const navigate = useNavigate();
+interface Props {
+  token: string;
+  user: any;
+  handlerLogout: () => void;
+}
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-  }, []);
-
-  const handlerLogout = () => {
-    logout();
-    navigate("/login");
-  };
-
+export const Navbar = ({ token, user, handlerLogout }: Props) => {
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">

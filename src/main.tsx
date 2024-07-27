@@ -18,6 +18,7 @@ import { Setting } from "./pages/setting";
 import { ForgotPassword } from "./pages/forgotPassword";
 import { NewPasswordForm } from "./pages/newPasswordForm";
 import { NavigationLayout } from "./components/layout/navigationLayout";
+import { FormEditPost } from "./pages/formEditPost";
 
 const routesForPublic = [
   {
@@ -81,6 +82,10 @@ const routesForPrivate = [
       {
         path: "/setting/:setting",
         element: <Setting />,
+      },
+      {
+        path: "/edit-postingan/:postId",
+        element: <FormEditPost />,
       },
     ],
   },

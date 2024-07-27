@@ -25,9 +25,7 @@ export const AuthContextProvider = ({ children }: props) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
 
   useEffect(() => {
-    if (token) {
-      localStorage.setItem("token", token);
-    } else {
+    if (token === null) {
       localStorage.removeItem("token");
     }
   }, [token]);

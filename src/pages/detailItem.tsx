@@ -144,6 +144,14 @@ export const DetailItem = () => {
               ketidakakuratan dalam proses klaim
             </p>
           )}
+          {user.user_id === item.user_id && item.is_claimed === false && (
+            <Button
+              onClick={() => navigate(`/edit-postingan/${item.post_id}`)}
+              className="bg-primary w-full"
+            >
+              Edit Postingan
+            </Button>
+          )}
           {user.user_id !== item.user_id &&
             item.is_claimed === false &&
             isUserClaimed === false && (
@@ -154,15 +162,6 @@ export const DetailItem = () => {
                 klaim
               </Button>
             )}
-          {user.user_id === item.user_id && item.is_claimed === false && (
-            <Button
-              onClick={() => navigate(`/claim-form/${item.post_id}`)}
-              className="bg-primary w-full"
-            >
-              Edit Postingan
-            </Button>
-          )}
-
           {isUserClaimed && (
             <Button
               onClick={() => navigate("/dashboard")}

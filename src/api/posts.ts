@@ -17,6 +17,10 @@ export const getPostByid = async (id: string) => {
   return await axiosJwt.get(`${apiUrl}/posts/${id}`);
 };
 
+export const getPostUpdateById = async (id: string) => {
+  return await axiosJwt.get(`${apiUrl}/posts/${id}/update`);
+};
+
 export const getClaimValidationByUserId = async () => {
   return await axiosJwt.get(`${apiUrl}/claim-validation`);
 };

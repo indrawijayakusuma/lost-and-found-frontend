@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import {
   getClaimValidationByUserId,
@@ -38,7 +37,7 @@ export const ItemListDashboard = ({
 
   useEffect(() => {
     fetchData();
-  }, [typePost, loading]);
+  }, [typePost]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -71,6 +70,7 @@ export const ItemListDashboard = ({
     try {
       const response = (await getPostByuserId()).data;
       setPosts(response.data);
+      console.log(response);
     } catch (error) {
       console.error("Failed to fetch user", error);
     }

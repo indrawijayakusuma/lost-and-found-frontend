@@ -18,9 +18,11 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { verifyOtp } from "@/api/otps";
-import { showErrorsMessage } from "@/utils/sweetAlert";
+import { showErrorsMessage, showSuccessMessage } from "@/utils/sweetAlert";
 import { useNavigate } from "react-router-dom";
 import laptop from "../assets/Laptop.png";
+import { BiLoaderAlt } from "react-icons/bi";
+import { useState } from "react";
 
 const FormSchema = z.object({
   otp: z.string().min(6, {
@@ -29,6 +31,7 @@ const FormSchema = z.object({
 });
 
 export const Otp = () => {
+  const [submit, setSubmit] = useState(false);
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -38,12 +41,15 @@ export const Otp = () => {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setSubmit(true);
     try {
       await verifyOtp(data.otp);
-      navigate("/login");
+      showSuccessMessage("OTP verified successfully");
+      setInterval(() => navigate("/login"), 3000);
     } catch (error: any) {
       showErrorsMessage(error.response.data.message);
     }
+    setSubmit(false);
   }
 
   return (
@@ -79,7 +85,18 @@ export const Otp = () => {
               )}
             />
 
-            <Button type="submit">Submit</Button>
+            <Button disabled={submit} type="submit">
+              {!submit ? (
+                "Submit"
+              ) : (
+                <div className="flex items-center align-middle">
+                  <div className="animate-spin text-xl mr-2">
+                    <BiLoaderAlt />
+                  </div>
+                  processing...
+                </div>
+              )}
+            </Button>
           </form>
         </Form>
       </div>

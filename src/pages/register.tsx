@@ -11,14 +11,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { showErrorsMessage } from "@/utils/sweetAlert";
+import { showErrorsMessage, showSuccessMessage } from "@/utils/sweetAlert";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import laptop from "../assets/Laptop.png";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { BiLoaderAlt } from "react-icons/bi";
 
 const formSchema = z.object({
   phone: z.string().min(10, {
@@ -45,13 +46,13 @@ const formSchema = z.object({
 });
 
 export const Register = () => {
-  // const [submit, setSubmit] = useState(false);
+  const [submit, setSubmit] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Register";
     window.scrollTo(0, 0);
-    // setSubmite(false);
+    setSubmit(false);
   }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -67,7 +68,7 @@ export const Register = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // setSubmit(true);
+    setSubmit(true);
     const data = {
       phone: values.phone,
       email: values.email,
@@ -78,13 +79,15 @@ export const Register = () => {
     if (values.password === values.passwordValidation) {
       try {
         await createUser(data);
-        navigate("/otp");
+        showSuccessMessage("OTP verified successfully");
+        setInterval(() => navigate("/otp"), 3000);
       } catch (error: any) {
         showErrorsMessage(error.response.data.message);
       }
     } else {
       showErrorsMessage("Password tidak sama");
     }
+    setSubmit(false);
   }
 
   return (
@@ -194,8 +197,17 @@ export const Register = () => {
               )}
             />
             <div className="pt-3">
-              <Button type="submit" className="flex mx-auto px-9">
-                Buat Akun
+              <Button disabled={submit} type="submit">
+                {!submit ? (
+                  "Buat Akun"
+                ) : (
+                  <div className="flex items-center align-middle">
+                    <div className="animate-spin text-xl mr-2">
+                      <BiLoaderAlt />
+                    </div>
+                    processing...
+                  </div>
+                )}
               </Button>
             </div>
           </form>

@@ -31,6 +31,25 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { createPost, getPostUpdateById } from "@/api/posts";
 
+interface FormDataInterface {
+  item_name: string;
+  tipe_barang: string;
+  color: string;
+  secondary_color: string;
+  date: Date;
+  location_id: string;
+  post_id: string;
+  question_id: string;
+  label_location: string;
+  location: string;
+  address: string;
+  additional_info: string;
+  user_id: string;
+  image: File | null;
+  question: string[];
+  found_item_id: string;
+}
+
 const formSchema = z.object({
   itemName: z.string().min(3, {
     message: "Nama item setidaknya mengandung 3 karakter",
@@ -77,6 +96,24 @@ export const FormEditPost = () => {
   const [submit, setSubmit] = useState(false);
   const navigate = useNavigate();
   const { postId } = useParams();
+  const [foundItem, setFoundItem] = useState<FormDataInterface>({
+    item_name: "",
+    tipe_barang: "",
+    color: "",
+    secondary_color: "",
+    date: new Date(),
+    location_id: "",
+    post_id: "",
+    question_id: "",
+    label_location: "",
+    location: "",
+    address: "",
+    additional_info: "",
+    user_id: "",
+    image: null,
+    question: [],
+    found_item_id: "",
+  });
 
   useEffect(() => {
     document.title = "Edit Post";
@@ -84,8 +121,9 @@ export const FormEditPost = () => {
     setSubmit(false);
     const getPost = async () => {
       try {
-        const response = await getPostUpdateById(postId || "");
-        console.log(response.data.data);
+        const response = (await getPostUpdateById(postId || "")).data;
+        console.log(response.data);
+        setFoundItem(response.data);
       } catch (error: any) {
         showErrorsMessage(error.response.data.message);
       }
@@ -109,6 +147,21 @@ export const FormEditPost = () => {
       question1: "",
       question2: "",
       question3: "",
+    },
+    values: {
+      itemName: foundItem?.item_name,
+      tipeBarang: foundItem?.tipe_barang,
+      color: foundItem?.color,
+      secondaryColor: foundItem?.secondary_color,
+      date: foundItem?.date ? new Date(foundItem.date) : new Date(),
+      labelLocation: foundItem?.label_location,
+      location: foundItem?.location,
+      address: foundItem?.address,
+      additionalInfo: foundItem?.additional_info,
+      image: new File([], ""),
+      question1: foundItem?.question[0],
+      question2: foundItem?.question[1],
+      question3: foundItem?.question[2],
     },
   });
 

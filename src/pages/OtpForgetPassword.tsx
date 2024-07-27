@@ -20,6 +20,8 @@ import { z } from "zod";
 import { getOtpByPhoneAndOtpCode } from "@/api/otps";
 import { showErrorsMessage } from "@/utils/sweetAlert";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { BiLoaderAlt } from "react-icons/bi";
 
 const FormSchema = z.object({
   otp: z.string().min(6, {
@@ -28,6 +30,7 @@ const FormSchema = z.object({
 });
 
 export const OtpForgetPassword = ({ phone }: { phone: string }) => {
+  const [submit, setSubmit] = useState(false);
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -37,12 +40,15 @@ export const OtpForgetPassword = ({ phone }: { phone: string }) => {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setSubmit(true);
     try {
       await getOtpByPhoneAndOtpCode(phone, data.otp);
+
       navigate("/login");
     } catch (error: any) {
       showErrorsMessage(error.response.data.message);
     }
+    setSubmit(false);
   }
 
   return (
@@ -77,7 +83,18 @@ export const OtpForgetPassword = ({ phone }: { phone: string }) => {
               )}
             />
 
-            <Button type="submit">Submit</Button>
+            <Button disabled={submit} type="submit">
+              {!submit ? (
+                "Submit"
+              ) : (
+                <div className="flex items-center align-middle">
+                  <div className="animate-spin text-xl mr-2">
+                    <BiLoaderAlt />
+                  </div>
+                  processing...
+                </div>
+              )}
+            </Button>
           </form>
         </Form>
       </div>

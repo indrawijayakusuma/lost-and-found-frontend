@@ -71,7 +71,6 @@ export const ItemListDashboard = ({
     try {
       const response = (await getPostByuserId()).data;
       setPosts(response.data);
-      console.log(response);
     } catch (error) {
       console.error("Failed to fetch user", error);
     }

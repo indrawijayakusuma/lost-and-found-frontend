@@ -101,7 +101,6 @@ export const ItemListDashboard = ({
           typePost={typePost}
         />
       ))}
-      <p>{loading && "Loading..."}</p>
       {filteredItem.length === 0 && (
         <p className="text-center mt-8">Postingan tidak tersedia</p>
       )}

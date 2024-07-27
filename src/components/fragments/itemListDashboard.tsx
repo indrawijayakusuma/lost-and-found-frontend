@@ -91,6 +91,8 @@ export const ItemListDashboard = ({
       post.item_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  console.log(loading);
+
   return (
     <>
       {filteredItem.map((post, index) => (

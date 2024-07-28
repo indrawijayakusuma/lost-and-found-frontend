@@ -173,7 +173,7 @@ export const FormEditPost = () => {
       img = foundItem.image || "";
     } else {
       img = values.image;
-    }
+    } 
 
     const formdata = new FormData();
     formdata.append("postId", foundItem.post_id);

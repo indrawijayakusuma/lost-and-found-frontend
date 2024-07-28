@@ -29,7 +29,7 @@ import { CalendarIcon } from "@radix-ui/react-icons";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { createPost, getPostUpdateById } from "@/api/posts";
+import { getPostUpdateById, updatePost } from "@/api/posts";
 
 interface FormDataInterface {
   item_name: string;
@@ -168,8 +168,17 @@ export const FormEditPost = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setSubmit(true);
     const data = `["${values.question1}", "${values.question2}", "${values.question3}"]`;
+    let img;
+    if (values.image.size <= 0) {
+      img = foundItem.image || "";
+    } else {
+      img = values.image;
+    }
 
     const formdata = new FormData();
+    formdata.append("postId", foundItem.post_id);
+    formdata.append("locationId", foundItem.location_id);
+    formdata.append("questionId", foundItem.question_id);
     formdata.append("itemName", values.itemName);
     formdata.append("tipeBarang", values.tipeBarang);
     formdata.append("color", values.color);
@@ -179,21 +188,20 @@ export const FormEditPost = () => {
     formdata.append("location", values.location);
     formdata.append("address", values.address);
     formdata.append("additionalInfo", values.additionalInfo);
-    formdata.append("image", values.image);
+    formdata.append("image", img);
     formdata.append("questions", data);
     try {
-      await createPost(formdata);
+      await updatePost(formdata);
       showSuccessMessageWithButton(
         "Barang yang anda temukan berhasil ditambahkan"
       ).then((result) => {
         if (result.isConfirmed) {
-          navigate("/", { replace: true });
+          navigate(-1);
         }
       });
     } catch (error) {
       showErrorsMessage("Something went wrong, please try again later");
     }
-    // form.reset();
     setSubmit(false);
   };
 

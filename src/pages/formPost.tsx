@@ -129,7 +129,7 @@ export const FormPost = () => {
     } catch (error) {
       showErrorsMessage("Something went wrong, please try again later");
     }
-    // form.reset();
+
     setSubmit(false);
   };
 

@@ -7,6 +7,10 @@ export const createPost = async (data: FormData) => {
   return await axiosJwt.post(`${apiUrl}/posts`, data);
 };
 
+export const updatePost = async (data: FormData) => {
+  return await axiosJwt.post(`${apiUrl}/posts/update`, data);
+};
+
 export const getposts = async (data: object) => {
   return await axios.get(`${apiUrl}/posts`, {
     params: data,

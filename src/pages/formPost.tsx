@@ -191,7 +191,7 @@ export const FormPost = () => {
                     Warna <span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Nomer telepon" required {...field} />
+                    <Input placeholder="Color" required {...field} />
                   </FormControl>
                   <FormDescription>
                     Masukkan nomor telepon yang aktif
